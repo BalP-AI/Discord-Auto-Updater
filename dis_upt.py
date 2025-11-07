@@ -10,6 +10,11 @@ import subprocess
 import sys
 
 def download_file(link, filename):
+    # Set headers to avoid 403 Forbidden
+    opener = urllib.request.build_opener()
+    opener.addheaders = [('User-Agent', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36')]
+    urllib.request.install_opener(opener)
+
     def reporthook(block_num, block_size, total_size):
         downloaded = block_num * block_size
         percent = downloaded * 100 / total_size if total_size > 0 else 0
